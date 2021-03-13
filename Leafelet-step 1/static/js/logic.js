@@ -1,18 +1,18 @@
 // Store API query variables
-// var url = " https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
+var url = " https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_hour.geojson";
 
-{
-type: "FeatureCollection",
-metadata: {
-generated: 1615486588000,
-url: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_hour.geojson",
-title: "USGS Significant Earthquakes, Past Hour",
-status: 200,
-api: "1.10.3",
-count: 0
-},
-features: []
-}
+// {
+// type: "FeatureCollection",
+// metadata: {
+// generated: 1615486588000,
+// url: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_hour.geojson",
+// title: "USGS Significant Earthquakes, Past Hour",
+// status: 200,
+// api: "1.10.3",
+// count: 0
+// },
+// features: []
+// }
 
 
 d3.json(url, function(response) {
@@ -43,17 +43,17 @@ function createFeatures(earthquakeData) {
   // Run the onEachFeature function once for each piece of data in the array
   var earthquakes = L.geoJSON(earthquakeData, {
     style: function(feature) {
-        // console.log(feature);
+        console.log(feature);
         
         return {
             fillColor: getColor(feature.properties.mag),
             weight: 2,
             opacity: 1,
             color: 'black',
-            // fillcolor:'#06406F',
+            fillcolor:'#06406F',
             fillOpacity: 0.85
         };
-        // return {color: "#00FF57"};
+        return {color: "#00FF57"};
     },
     pointToLayer: function(feature, latlng) {
         return new L.CircleMarker(latlng, {radius: feature.properties.mag*5});
@@ -66,7 +66,7 @@ function createFeatures(earthquakeData) {
 }
 
 function createMap(earthquakes) {
-    // console.log(feature.properties.place);
+     console.log(feature.properties.place);
 
     // Define streetmap and darkmap layers
     var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
