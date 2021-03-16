@@ -62,7 +62,7 @@ function createFeatures(earthquakeData) {
   });
   
     // Sending our earthquakes layer to the createMap function
-  createMap(earthquakes);
+  // createMap(earthquakes);
 }
 
 function createMap(earthquakes) {
@@ -89,13 +89,13 @@ function createMap(earthquakes) {
     // };
   
     // Create our map, giving it the streetmap and earthquakes layers to display on load
-    var myMap = L.map("map", {
-      center: [
-        37.09, -95.71
-      ],
-      zoom: 5
-      ,layers: [streetmap, earthquakes]
-    });
+    // var myMap = L.map("map", {
+    //   center: [
+    //     37.09, -95.71
+    //   ],
+    //   zoom: 5
+    //   ,layers: [streetmap, earthquakes]
+    // });
 
      
  var legend = L.control({position: 'bottomright'});
@@ -117,6 +117,6 @@ function createMap(earthquakes) {
      return div;
  };
  
- legend.addTo(myMap);
+ legend.addTo(mapbox);
 
   }
