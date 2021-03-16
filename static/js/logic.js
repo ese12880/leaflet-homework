@@ -16,7 +16,7 @@ var url = " https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significan
 
 
 d3.json(url, function(response) {
-console.log(response.features);
+// console.log(response.features);
 createFeatures(response.features)
 });
 function getColor(d) {
@@ -43,17 +43,17 @@ function createFeatures(earthquakeData) {
   // Run the onEachFeature function once for each piece of data in the array
   var earthquakes = L.geoJSON(earthquakeData, {
     style: function(feature) {
-        console.log(feature);
+        // console.log(feature);
         
         return {
             fillColor: getColor(feature.properties.mag),
             weight: 2,
             opacity: 1,
             color: 'black',
-            fillcolor:'#06406F',
+            // fillcolor:'#06406F',
             fillOpacity: 0.85
         };
-        return {color: "#00FF57"};
+        // return {color: "#00FF57"};
     },
     pointToLayer: function(feature, latlng) {
         return new L.CircleMarker(latlng, {radius: feature.properties.mag*5});
@@ -66,7 +66,7 @@ function createFeatures(earthquakeData) {
 }
 
 function createMap(earthquakes) {
-     console.log(feature.properties.place);
+    //  console.log(feature.properties.place);
 
     // Define streetmap and darkmap layers
     var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
@@ -84,9 +84,9 @@ function createMap(earthquakes) {
     };
   
     // Create overlay object to hold our overlay layer
-    var overlayMaps = {
-      Earthquakes: earthquakes
-    };
+    // var overlayMaps = {
+    //   Earthquakes: earthquakes
+    // };
   
     // Create our map, giving it the streetmap and earthquakes layers to display on load
     var myMap = L.map("map", {
@@ -104,7 +104,7 @@ function createMap(earthquakes) {
  
      var div = L.DomUtil.create('div', 'info legend'),
          grades = [0, 1, 2, 3, 4, 5]
-         labels = [];
+        //  labels = [];
  
      // loop through our density intervals and generate a label with a colored square for each interval
      for (var i = 0; i < grades.length; i++) {
