@@ -1,19 +1,6 @@
 // Store API query variables
 var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_hour.geojson";
 
-// {
-// type: "FeatureCollection",
-// metadata: {
-// generated: 1615486588000,
-// url: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_hour.geojson",
-// title: "USGS Significant Earthquakes, Past Hour",
-// status: 200,
-// api: "1.10.3",
-// count: 0
-// },
-// features: []
-// }
-
 
 d3.json(url, function(response) {
 // console.log(response.features);
@@ -101,6 +88,7 @@ function createMap(earthquakes) {
       ,layers: [streetmap, earthquakes]
     });
 
+    // Create map object and set default layers
      
  var legend = L.control({position: 'bottomright'});
 
