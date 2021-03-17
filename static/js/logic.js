@@ -52,12 +52,16 @@ function createFeatures(earthquakeData) {
   createMap(earthquakes);
 }
 
+// An array which will be used to store created cityMarkers
+var cityMarkers = [];
+
+
 function createMap(earthquakes) {
     //  console.log(feature.properties.place);
 
     // Add all the cityMarkers to a new layer group.
     // Now we can handle them as one group instead of referencing each individually
-    // var cityLayer = L.layerGroup(cityMarkers);
+    var cityLayer = L.layerGroup(cityMarkers);
     
     // Define variables for our tile layers
     var light = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
@@ -73,12 +77,10 @@ function createMap(earthquakes) {
       id: "dark-v10",
       accessToken: API_KEY
     });
-   
-   
 
-
-  
-    // Define a baseMaps object to hold our base layers
+    var streetmap = [];
+   
+   // Define a baseMaps object to hold our base layers
     var baseMaps = {
       "Street Map": streetmap
     };
