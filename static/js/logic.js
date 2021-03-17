@@ -27,7 +27,7 @@ function createFeatures(earthquakeData) {
 
    
   // Create a GeoJSON layer containing the features array on the earthquakeData object
-  // Run the onEachFeature function once for each piece of data in the array
+  // // Run the onEachFeature function once for each piece of data in the array
   var earthquakes = L.geoJSON(earthquakeData, {
     style: function(feature) {
         // console.log(feature);
@@ -42,6 +42,9 @@ function createFeatures(earthquakeData) {
         };
         // return {color: "#00FF57"};
     },
+
+
+
     pointToLayer: function(feature, latlng) {
         return new L.CircleMarker(latlng, {radius: feature.properties.mag*5});
     },
@@ -65,7 +68,7 @@ function createMap(earthquakes) {
 
     // Add all the cityMarkers to a new layer group.
     // Now we can handle them as one group instead of referencing each individually
-//    var cityLayer = L.layerGroup(cityMarkers);
+   var cityLayer = L.layerGroup(cityMarkers);
     
     // Define variables for our tile layers
     var light = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
@@ -96,22 +99,20 @@ function createMap(earthquakes) {
       Earthquakes: earthquakes
     };
   
-   
-   
-   
-   
-    // Create our map, giving it the streetmap and earthquakes layers to display on load
-    //var map = L.map('mapid').setView([37.09,-95.71], 5);
-//    map.addLayer([streetmap, earthquakes]);
-    // L.layers(streetmap,earthquakes).addTo(map);
     
-    // var myMap = L.map ("mapid", {
-    //   center: [
-    //     37.09, -95.71
-    //   ],
-    //   zoom: 5
-    //   ,layers: [streetmap, earthquakes]
-    // });
+   
+  //      // Create our map, giving it the streetmap and earthquakes layers to display on load
+    var map = L.map('mapid').setView([37.09,-95.71], 5);
+   map.addLayer([streetmap, earthquakes]);
+    L.layers(streetmap,earthquakes).addTo(map);
+    
+    var myMap = L.map ("mapid", {
+      center: [
+        37.09, -95.71
+      ],
+      zoom: 5
+      ,layers: [streetmap, earthquakes]
+    });
 
     // Create map object and set default layers
      
@@ -123,17 +124,15 @@ function createMap(earthquakes) {
 //          grades = [0, 1, 2, 3, 4, 5]
 //          labels = [];
  
-//      // loop through our density intervals and generate a label with a colored square for each interval
-//      for (var i = 0; i < grades.length; i++) {
-//          console.log(grades.length);
-//          div.innerHTML +=
-//              '<i style="background:' + getColor(grades[i]) + '"></i> ' +
-//              grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-//      }
+    //  // loop through our density intervals and generate a label with a colored square for each interval
+    //  for (var i = 0; i < grades.length; i++) {
+    //      console.log(grades.length);
+    //      div.innerHTML +=
+    //          '<i style="background:' + getColor(grades[i]) + '"></i> ' +
+    //          grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+    //  }
  
-//      return div;
-//  };
+     return div;
+ };
  
- //legend.addTo(map);
-
-  }
+ legend.addTo(map);
