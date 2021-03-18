@@ -1,5 +1,7 @@
 // Store API query variables
-var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_hour.geojson";
+var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson";
+
+
 
 
 d3.json(url, function(response) {
@@ -12,7 +14,7 @@ function getColor(d) {
            (d >=3)  ? '#ff751a' :
            (d >= 2) ? '#ffbb33' :
            (d >=1)  ? '#ffff00' :
-           (d >= 0)  ? '#4dff4d' :
+           (d >= -0)  ? '#4dff4d' :
                       '#ffffff';
 };
 
@@ -59,12 +61,9 @@ function createFeatures(earthquakeData) {
 var cityMarkers = [];
 
 
+
 function createMap(earthquakes) {
   //  console.log(feature.properties.place);
-
-  // Create our map, giving it the streetmap and earthquakes layers to display on load
-    var map = L.map('mapid').setView([37.09,-95.71], 5);
-
 
     // Add all the cityMarkers to a new layer group.
     // Now we can handle them as one group instead of referencing each individually
@@ -77,7 +76,6 @@ function createMap(earthquakes) {
       id: "light-v10",
       accessToken: API_KEY
     });
-    light.addTo(map);
     
     var dark = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
       attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
@@ -85,7 +83,6 @@ function createMap(earthquakes) {
       id: "dark-v10",
       accessToken: API_KEY
     });
-    dark.addTo(map);
 
     var streetmap = [];
    
@@ -101,38 +98,30 @@ function createMap(earthquakes) {
   
     
    
-  //      // Create our map, giving it the streetmap and earthquakes layers to display on load
+  // Create our map, giving it the streetmap and earthquakes layers to display on load
     var map = L.map('mapid').setView([37.09,-95.71], 5);
-   map.addLayer([streetmap, earthquakes]);
-    L.layers(streetmap,earthquakes).addTo(map);
-    
-    var myMap = L.map ("mapid", {
-      center: [
-        37.09, -95.71
-      ],
-      zoom: 5
-      ,layers: [streetmap, earthquakes]
-    });
+    light.addTo(map);
+    // dark.addTo(map);
+    earthquakes.addTo(map);        
 
     // Create map object and set default layers
      
-//  var legend = L.control({position: 'bottomright'});
+ var legend = L.control({position: 'bottomright'});
 
-//  legend.onAdd = function (mapBox) {
+ legend.onAdd = function (map) {
  
-//      var div = L.DomUtil.create('div', 'info legend'),
-//          grades = [0, 1, 2, 3, 4, 5]
-//          labels = [];
+     var div = L.DomUtil.create('div', 'info legend');
+
+    div.innerHTML += '<i style="background: #660033"> </i><span>5+</span><br>';
+    div.innerHTML += '<i style="background: #ff0000"> </i><span>4-4</span><br>';
+    div.innerHTML += '<i style="background: #ff751a"> </i><span>3-3</span><br>';
+    div.innerHTML += '<i style="background: #ffbb33"> </i><span>2-2</span><br>';
+    div.innerHTML += '<i style="background: #ffff00"> </i><span>1-1</span><br>';
+    div.innerHTML += '<i style="background: #4dff4d"> </i><span>0-0</span><br>';
+    div.innerHTML += '<i style="background: #ffffff"> </i><span><0</span><br>';
  
-    //  // loop through our density intervals and generate a label with a colored square for each interval
-    //  for (var i = 0; i < grades.length; i++) {
-    //      console.log(grades.length);
-    //      div.innerHTML +=
-    //          '<i style="background:' + getColor(grades[i]) + '"></i> ' +
-    //          grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-    //  }
- 
-     return div;
+    return div;
  };
  
- legend.addTo(map);
+ legend.addTo(map)
+};
